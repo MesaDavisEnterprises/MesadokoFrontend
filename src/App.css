@@ -1,0 +1,27 @@
+.bg-mesadoko{
+    background-color: #3456DB ;
+}
+
+/* Estilos para los componentes de radio personalizados */
+input[type="radio"] {
+    appearance: none;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid #cbd5e0;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  input[type="radio"]:checked {
+    border-color: #48bb78;
+  }
+  
+  /* Estilos para el fondo cuando está seleccionado */
+  .bg-green-100 {
+    background-color: #f0fff4;
+  }
+  
+  /* Resto de tus estilos */
+  
