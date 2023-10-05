@@ -9,7 +9,8 @@ const getTickets = async () => {
       },
     });
 
-    return response.data;
+
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -45,4 +46,15 @@ const updateTicket = async (ticket) => {
   }
 };
 
-export { getTickets, getStatus, updateTicket };
+const downloadExcel = async () => {
+  try {
+    const response = await clienteAxios.get("/tickets/export", {
+      responseType: "blob",
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getTickets, getStatus, updateTicket, downloadExcel };

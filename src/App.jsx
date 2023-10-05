@@ -19,6 +19,8 @@ import { LevelsProvider } from "./context/levelsProvider";
 import { WordsProvider } from "./context/wordsProvider";
 import { AuthProvider } from "./context/authProvider";
 import { QuizProvider } from "./context/QuizProvider";
+import { TicketsProvider } from "./context/ticketsProvider";
+import Dashboard from "./pages/Dashboard";
 
 
 function App() {
@@ -31,9 +33,10 @@ function App() {
               <LevelsProvider>
                 <WordsProvider>
                   <QuizProvider>
+                    <TicketsProvider>
                 <Routes>
                   <Route path="/admin" element={<AdminLayout/>}>
-                    <Route index element={<h1>Home</h1>} />
+                    <Route index element={<Dashboard/>} />
                     <Route path="topics" element={<TopicsPage />} />
                     <Route path="lessons" element={<LessonsPage />} />
                     <Route path="levels" element={<LevelPage />} />
@@ -50,6 +53,7 @@ function App() {
               </Route>
     
                 </Routes>
+                </TicketsProvider>
                 </QuizProvider>
                 </WordsProvider>
               </LevelsProvider>

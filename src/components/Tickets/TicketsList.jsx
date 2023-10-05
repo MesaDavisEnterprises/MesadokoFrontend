@@ -1,26 +1,28 @@
 import { useState,useEffect } from "react";
 import { getStatus ,updateTicket} from "../../services/ticketService.js";
+import Pagination from "../pagination.jsx";
+
+
 const TicketsList = ({ tickets }) => {
 
+  const [currentPage, setCurrentPage] = useState(0)
+  
+  const itemsPerPage = 10;
 
+  const pageCount = Math.ceil(tickets.length / itemsPerPage);
+
+  const offset = currentPage * itemsPerPage;
+
+  const currentPageData = tickets.slice(offset, offset + itemsPerPage);
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
   const [statusOptions, setStatusOptions] = useState([
     "Pendiente",
     "Progreso",
     "Resuelto",
   ]);
-
-//   useEffect(() => {
-//         const fetchStatus = async () => {
-
-//             const data = await getStatus();
-
-//             console.log(data);
-//             setStatusOptions(data);
-//             console.log(statusOptions);
-//         };
-//         fetchStatus();
-//     },[]);
-
 
 
   const onUpdateStatus = async (id, status) => {
@@ -31,6 +33,9 @@ const TicketsList = ({ tickets }) => {
   return (
     <div className="overflow-x-auto ">
       <table className="min-w-full bg-white shadow-lg mx-auto">
+        <div className="flex justify-center mt-4">
+         <Pagination pageCount={pageCount} handlePageChange={handlePageChange} />
+        </div>
         <thead>
           <tr>
             <th className="py-3 px-6 text-left">Asunto</th>
@@ -41,7 +46,7 @@ const TicketsList = ({ tickets }) => {
           </tr>
         </thead>
         <tbody>
-          {tickets.map((ticket) => (
+          {currentPageData.map((ticket) => (
             <tr key={ticket.id}>
               <td className="py-3 px-6">{ticket.subject}</td>
               <td className="py-3 px-6">{ticket.email}</td>

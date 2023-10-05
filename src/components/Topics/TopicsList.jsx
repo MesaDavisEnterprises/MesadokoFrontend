@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "./ModalTopic";
 import useTopics from "../../hooks/useTopics";
-import ReactPaginate from "react-paginate";
+import Pagination from "../pagination";
 
 const TopicsList = () => {
   const { topics, deleteTopicState, changeState, setTopic } = useTopics();
@@ -78,30 +78,7 @@ const TopicsList = () => {
       </div>
       <table className="w-full bg-white">
         <div className="flex justify-center mt-4">
-          <ReactPaginate
-            previousLabel={"Anterior"}
-            nextLabel={"Siguiente"}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            activeClassName={"text-white font-bold"}
-            onPageChange={handlePageChange}
-            containerClassName={"flex justify-center items-center mt-4 mb-4 space-x-2"}
-            subContainerClassName={"flex justify-center items-center mt-4 mb-4 space-x-2"}
-
-            pageLinkClassName={
-              "page-link bg-white text-blue-500 p-3 hover:bg-blue-100 border rounded-full mx-1"
-            }
-            previousLinkClassName={
-              "page-link bg-white text-blue-500 p-3 hover:bg-blue-100 border rounded-full mx-1"
-            }
-            nextLinkClassName={
-              "page-link bg-white text-blue-500 p-3 hover:bg-blue-100 border rounded-full mx-1"
-            }
-            // disabledClassName={"disabled"}
-          />
+         <Pagination pageCount={pageCount} handlePageChange={handlePageChange} />
         </div>
         <thead>
           <tr>
