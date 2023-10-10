@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useWords from "../../hooks/useWords";
+import AlertError from "../alerts/AlertError";
 
 const ModalWord = ({ level }) => {
   const [showModal, setShowModal] = useState(false);
@@ -8,8 +9,19 @@ const ModalWord = ({ level }) => {
   const [wordClue, setWordClue] = useState("");
   const [wordLearn, setWordLearn] = useState("");
   const [wordAudio, setWordAudio] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
+    if (
+      !wordName.trim() ||
+      !wordClue.trim() ||
+      !wordLearn.trim() ||
+      !wordAudio.trim()
+    ) {
+      setError("All fields are required");
+      return;
+    }
+
     e.preventDefault();
     const word = {
       wordName,
@@ -27,6 +39,7 @@ const ModalWord = ({ level }) => {
     setWordClue("");
     setWordLearn("");
     setWordAudio("");
+    setError("");
     setShowModal(false);
   };
 
@@ -42,94 +55,93 @@ const ModalWord = ({ level }) => {
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl ">
+            <div className="relative w-auto my-6 mx-auto max-w-md ">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-100 outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                  <h3 className="text-2xl font-semibold">Create a New Word</h3>
+              
+                </div>
                 {/*body*/}
-                <form
-                  // onSubmit={handleSubmit}
-                  className="max-w-sm mx-auto bg-gray-100 rounded-lg shadow-md p-6 w-full flex flex-col gap-4"
-                >
-                  <h2 className="text-xl font-semibold mb-4">
-                    Create a New Word
-                  </h2>
+                <form className="p-6">
+                  {error ? <AlertError error={error} /> : null}
                   <div className="mb-4">
                     <label
-                      htmlFor="name"
+                      htmlFor="word"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Word:
                     </label>
                     <input
                       type="text"
-                      id="name"
+                      id="word"
                       value={wordName}
                       onChange={(e) => setWordName(e.target.value)}
-                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 bg-slate-200 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="mb-4">
                     <label
-                      htmlFor="name"
+                      htmlFor="clue"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Clue:
                     </label>
                     <input
                       type="text"
-                      id="name"
+                      id="clue"
                       value={wordClue}
                       onChange={(e) => setWordClue(e.target.value)}
-                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 bg-slate-200 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="mb-4">
                     <label
-                      htmlFor="name"
+                      htmlFor="learn"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Learn:
                     </label>
                     <input
                       type="text"
-                      id="name"
+                      id="learn"
                       value={wordLearn}
                       onChange={(e) => setWordLearn(e.target.value)}
-                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 bg-slate-200 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="mb-4">
                     <label
-                      htmlFor="name"
+                      htmlFor="audio"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Audio Path:
                     </label>
                     <input
                       type="text"
-                      id="name"
+                      id="audio"
                       value={wordAudio}
                       onChange={(e) => setWordAudio(e.target.value)}
-                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="w-full mt-1 px-4 py-2 rounded-md border-gray-300 bg-slate-200 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                   </div>
-
-                  <div className="mb-4"></div>
                 </form>
 
+                {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
                   <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
+                    className="text-white bg-red-500 font-bold uppercase text-sm px-6 py-3 rounded"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => restartState()}
                   >
                     Cancel
                   </button>
                   <button
-                    className="bg-green-600 text-white hover:bg-orange-400 active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
+                    className="bg-green-600 text-white hover:bg-orange-400 active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded ml-2"
                     type="button"
                     onClick={handleSubmit}
                   >

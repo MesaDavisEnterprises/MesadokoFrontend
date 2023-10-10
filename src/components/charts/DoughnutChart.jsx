@@ -29,15 +29,19 @@ const DoughnutChart = () => {
       Leccion1: 10,
       Leccion2: 8,
       Leccion3: 15,
-      // ...otros datos de lecciones en inglés
     },
     Frances: {
       Leccion1: 5,
       Leccion2: 12,
       Leccion3: 6,
-      // ...otros datos de lecciones en francés
     },
-    // Agrega otros topics según sea necesario
+    Aleman: {
+      Leccion1: 8,
+      Leccion2: 10,
+      Leccion3: 12,
+      leccion4: 15,
+      leccion5: 3,
+    },
   };
 
   const data = {

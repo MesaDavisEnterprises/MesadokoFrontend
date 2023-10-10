@@ -3,30 +3,37 @@ import React from "react";
 import { useState } from "react";
 
 import useLevels from "../../hooks/useLevels";
-
+import AlertError from "../alerts/AlertError";
 
 const ModalLevel = ({ lesson }) => {
   const [showModal, setShowModal] = useState(false);
   const { saveLevel } = useLevels();
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const [color, setColor] = useState("#000000");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const level = {
-            name,
-            color,
-            lessonId: lesson.id
-        }
-        await saveLevel(level);
-        restartState();
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const restartState = () => {
-        setName("");
-        setColor("#000000");
-        setShowModal(false);
+    if (!name.trim()) {
+      setError("Name is required");
+      return;
     }
+    const level = {
+      name,
+      color,
+      lessonId: lesson.id,
+    };
+    await saveLevel(level);
+    restartState();
+  };
+
+  const restartState = () => {
+    setName("");
+    setColor("#000000");
+    setError("");
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -48,6 +55,7 @@ const ModalLevel = ({ lesson }) => {
                   // onSubmit={handleSubmit}
                   className="max-w-sm mx-auto bg-gray-100 rounded-lg shadow-md p-6 w-full flex flex-col gap-4"
                 >
+                  {error ? <AlertError error={error} /> : null}
                   <h2 className="text-xl font-semibold mb-4">
                     Create a New Level
                   </h2>
@@ -89,7 +97,7 @@ const ModalLevel = ({ lesson }) => {
                   <button
                     className="bg-red-500 hover:bg-red-600 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => restartState()}
                   >
                     Cancel
                   </button>
