@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
 
     const authUser = async() => {
         const token = localStorage.getItem('token');
-        console.log(token);
+        
 
         if(!token){
             setAuth(null);
@@ -30,25 +30,16 @@ const AuthProvider = ({ children }) => {
         try {
             const user = await getProfile(token);
 
-            console.log(user);
-
+        
             if(!user){
                 setAuth(null);
                 setCargando(false);
                 return;
             }
 
-            const {role} = user;
-            
-            if(role.name !== 'ADMIN'){
-                setAuth(null);
-                setCargando(false);
-                return;
-            }
             setAuth(user);  
             setCargando(false);
         } catch (error) {
-            
             setAuth(null);
             setCargando(false);
         }
@@ -66,7 +57,8 @@ const AuthProvider = ({ children }) => {
             {auth,
             setAuth,
             cargando,
-            logout
+            logout,
+            authUser
             }}>
             {children}
         </AuthContext.Provider>

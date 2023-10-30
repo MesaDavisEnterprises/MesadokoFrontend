@@ -3,7 +3,7 @@ import clienteAxios from "../../config/Axios";
 const login = async (user) => {
   try {
 
-    const response = await clienteAxios.post("/auth/login-admin", user);
+    const response = await clienteAxios.post("/auth/login", user);
 
   
 

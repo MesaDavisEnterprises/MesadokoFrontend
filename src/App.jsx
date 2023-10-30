@@ -21,6 +21,7 @@ import { AuthProvider } from "./context/authProvider";
 import { QuizProvider } from "./context/QuizProvider";
 import { TicketsProvider } from "./context/ticketsProvider";
 import Dashboard from "./pages/Dashboard";
+import PlayerLayout from "./layout/PlayerLayout";
 
 
 function App() {
@@ -48,6 +49,12 @@ function App() {
                     <Route path="*" element={<h1>Not Found</h1>} />
                   </Route>
 
+                  <Route path="/player" element={<PlayerLayout/>} >
+                    <Route index element={<h1> Sere el dashboard de player</h1>} />
+                    
+                  </Route>
+
+      
               <Route path="/" >   
                   <Route index element={<LoginPage />}/>
               </Route>

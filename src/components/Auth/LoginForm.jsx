@@ -7,7 +7,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { setAuth } = useAuth();
+  const { auth, authUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -29,9 +29,20 @@ const LoginForm = () => {
     localStorage.setItem("token", response.token);
 
 
-    setAuth(response.user);
+    await authUser();
 
-    navigate("/admin");
+    
+    if(auth?.role.name === 'ADMIN'){
+       navigate("/admin");
+    }
+
+    if(auth?.role.name === 'PLAYER'){
+      navigate("/player");
+    }
+
+
+
+    
   };
 
   return (

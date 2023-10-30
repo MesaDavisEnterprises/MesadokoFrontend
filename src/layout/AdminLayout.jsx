@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet ,Navigate} from "react-router-dom";
-import Sidebar from "../components/Master/Sidebar";
+import SidebarAdmin from "../components/Sidebars/SidebarAdmin";
 import { Box } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 
@@ -13,13 +13,14 @@ const AdminLayout = () => {
     return;
   }
 
-  if (auth) {
+
+  if (auth?.role.name === 'ADMIN') {
 
     return (
       <>
   
        <Box sx={{ display: 'flex' }}>
-           <Sidebar />
+           <SidebarAdmin />
         
             <div className="w-full bg-gray-100">
                <Outlet />
