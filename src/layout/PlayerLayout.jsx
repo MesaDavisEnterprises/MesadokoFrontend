@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import Sidebar from "../components/Master/Sidebar";
 import { Box } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 
