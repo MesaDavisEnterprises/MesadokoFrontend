@@ -34,7 +34,7 @@ Si deseas contribuir a este proyecto, sigue estos pasos:
 3. Asegúrate de tener la rama dev actualizada antes de comenzar a trabajar en tus cambios:
    ```bash
     git checkout dev
-    git pull origin dev
+    git pull origin main
    ````
 4. Una vez que hayas terminado y probado tus cambios, guarda tus cambios y haz un commit:
    ```bash
